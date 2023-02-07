@@ -97,13 +97,14 @@ function drawLight(spectrum, _height){
 	if(_height < 50){
 		return;
 	}
-  	for (let i = 0; i < spectrum.length; i+=10) {
-		stroke(255, 10);
+  	for (let i = 0; i < spectrum.length; i+=30) {
+		noStroke();
+		fill(255, 10);
     	let amp = spectrum[i];
     	let y = map(amp, 0, 256, 0, _height*3/4);
-		line(i, height, i, height - y);
+		ellipse(i, height, 30, y);
   	}
-	drawLight(spectrum,_height*3/4);
+	drawLight(spectrum,_height*0.7);
 }
 
   
