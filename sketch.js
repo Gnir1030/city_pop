@@ -10,10 +10,8 @@ let vib = 2;
 function toggleSong() {
   if(song.isPlaying()) {
     song.pause();
-	button.html('Play');
   } else {
     song.play();
-	button.html('Pause');
   }
 }
 
@@ -33,12 +31,18 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+	if(song.isPlaying()) {
+		button.html('Pause');
+	  } else {
+		button.html('Play');
+	  }
+  background(10);
   song.rate(rate);
-  translate(width/2, height/2);
   noFill();
   spectrum = fft.analyze();
+  drawLight(spectrum, height);
   radius = 100;
+  translate(width/2, height/2);
   rotate(theta);
   for (let i = 0; i < 360; i+=vib) {
     stroke(color(i, 255,255));
@@ -89,5 +93,17 @@ function changeVib(event) {
 	}
 }
 
+function drawLight(spectrum, _height){
+	if(_height < 50){
+		return;
+	}
+  	for (let i = 0; i < spectrum.length; i+=10) {
+		stroke(255, 10);
+    	let amp = spectrum[i];
+    	let y = map(amp, 0, 256, 0, _height*3/4);
+		line(i, height, i, height - y);
+  	}
+	drawLight(spectrum,_height*3/4);
+}
 
   
