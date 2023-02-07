@@ -16,7 +16,7 @@ function toggleSong() {
 }
 
 function preload() {
-  song = loadSound('Ice & Fire - King Canyon.mp3'); 
+  song = loadSound('Ride On Time.mp3'); 
 }
 
 function setup() {
