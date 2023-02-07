@@ -16,29 +16,28 @@ function preload() {
 }
 
 function setup() {
+colorMode(HSB);
   createCanvas(600, 600);
+  space_between_lines = width/128;
   //angleMode(DEGREES); // Change the mode to DEGREES
   button = createButton('Pause');
   button.mousePressed(toggleSong);
   song.play();
-  fft = new p5.FFT(0.9, 512);
+  fft = new p5.FFT(0.9, 256);
 }
 
 function draw() {
   background(0);
-  fill(color('red'));
   let spectrum = fft.analyze();
   console.log(spectrum, spectrum.length);
-  beginShape();
-  vertex(0,height);
   for (let i = 0; i < spectrum.length; i++) {
     //stroke(random(0,255),random(0,255),random(0,255));
     let amp = spectrum[i];
-    let y = map(amp, 0, 256, height, 0);
-	vertex(i, y);
+    let y = map(amp, 0, 1024, height, 0);
+	fill(i,255,255);
+	rect(i * space_between_lines, height/2, space_between_lines, height - y);
+	rect(i * space_between_lines, y - height/2 , space_between_lines, height - y);
   }
-  vertex(width,height);
-  endShape();
 }
 
 // Chrome 70 will require user gestures to enable web audio api
