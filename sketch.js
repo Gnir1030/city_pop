@@ -4,6 +4,7 @@ let spectrum;
 let rate = 1;
 let oldmouseX, oldmouseY;
 let theta = 0;
+let length = 1024;
 
 function toggleSong() {
   if(song.isPlaying()) {
@@ -36,7 +37,7 @@ function draw() {
   noFill();
   //stroke(color('red'));
   spectrum = fft.analyze();
-  let length = 512;
+  //length = 1024;
   radius = 100;
   rotate(theta);
   //console.log(spectrum, spectrum.length);
@@ -54,11 +55,13 @@ function mouseDragged(){
 	//console.log(spectrum);
 	if((mouseX - width/2) * (oldmouseY - height/2) - (mouseY - height/2) * (oldmouseX - width/2) < 0){ //vector product
 		theta++;
-		rate+=0.001;
+		//rate+=0.001;
+		length-=10;
 	}
 	else{
 		theta--;
-		rate-=0.001;
+		//rate-=0.001;
+		length+=10;
 	}
 
 	if(theta > 360){
